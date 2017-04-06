@@ -19,18 +19,22 @@ namespace Ch01
 
         public string Statement()
         {
-            double totalAmount = 0;
             List<Rental> rentals = _rentals;
             string result = "Rental Record for " + Name + "\n";
             foreach (Rental each in rentals)
-            {
-                var thisAmount = each.GetCharge();
-                result += "\t" + each.RentalMovie.Title + "\t" + thisAmount + "\n";
-                totalAmount += thisAmount;
-            }
+                result += "\t" + each.RentalMovie.Title + "\t" + each.GetCharge() + "\n";
 
-            result += "Amount owed is " + totalAmount + "\n";
+            result += "Amount owed is " + GetTotalCharge() + "\n";
             result += "You earned " + GetFrequentReterpoints() + " frequent renter points\n";
+
+            return result;
+        }
+
+        private double GetTotalCharge()
+        {
+            double result = 0;
+            foreach (Rental each in _rentals)
+                result += each.GetCharge();
 
             return result;
         }
