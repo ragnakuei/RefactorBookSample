@@ -25,33 +25,13 @@ namespace Ch01
             string result = "Rental Record for " + Name + "\n";
             foreach (Rental each in rentals)
             {
-                double thisAmount = 0;
-
-                switch (each.RentalMovie.PriceCode)
-                {
-                    case Movie.Regular:
-                        thisAmount += 2;
-                        if (each.DaysRented > 2)
-                        {
-                            thisAmount += (each.DaysRented - 2) * 1.5;
-                        }
-                        break;
-                    case Movie.NewRelease:
-                        thisAmount += each.DaysRented * 3;
-                        break;
-                    case Movie.Childrens:
-                        thisAmount += 1.5;
-                        if (each.DaysRented > 3)
-                            thisAmount += (each.DaysRented - 3) * 1.5;
-                        break;
-                }
-
                 frequentRenterPoints++;
 
                 if ((each.RentalMovie.PriceCode == Movie.NewRelease)
                     && (each.DaysRented > 1))
                     frequentRenterPoints++;
 
+                var thisAmount = amountFor(each);
                 result += "\t" + each.RentalMovie.Title + "\t" + thisAmount + "\n";
                 totalAmount += thisAmount;
             }
@@ -60,8 +40,31 @@ namespace Ch01
             result += "You earned " + frequentRenterPoints + " frequent renter points\n";
 
             return result;
+        }
 
+        private static double amountFor(Rental each)
+        {
+            double thisAmount = 0;
+            switch (each.RentalMovie.PriceCode)
+            {
+                case Movie.Regular:
+                    thisAmount += 2;
+                    if (each.DaysRented > 2)
+                    {
+                        thisAmount += (each.DaysRented - 2) * 1.5;
+                    }
+                    break;
+                case Movie.NewRelease:
+                    thisAmount += each.DaysRented * 3;
+                    break;
+                case Movie.Childrens:
+                    thisAmount += 1.5;
+                    if (each.DaysRented > 3)
+                        thisAmount += (each.DaysRented - 3) * 1.5;
+                    break;
+            }
 
+            return thisAmount;
         }
     }
 }
