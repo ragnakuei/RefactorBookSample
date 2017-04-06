@@ -1,36 +1,55 @@
-﻿namespace Ch01
+﻿using System;
+
+namespace Ch01
 {
     public class Movie
     {
+        private Price _price;
+
         public const int Regular = 0;
         public const int NewRelease = 1;
         public const int Childrens = 2;
 
         public string Title { get; }
-        public int PriceCode { get; private set; }
 
-        public Movie(string title, int priceCode)
+        public Movie(string title, int price)
         {
             Title = title;
-            PriceCode = priceCode;
+            SetPriceCode(price);
         }
 
         public void SetPriceCode(int arg)
         {
-            PriceCode = arg;
+            switch (arg)
+            {
+                case Regular:
+                    _price = new RegularPrice();
+                    break;
+                case Childrens:
+                    _price = new ChildrensPrice();
+                    break;
+                case NewRelease:
+                    _price = new NewReleasePrice();
+                    break;
+                default:
+                    throw new ArgumentException("Incorrect Price Code");
+            }
+        }
+
+        public int GetPriceCode()
+        {
+            return _price.GetPriceCode();
         }
 
         public double GetCharge(int daysRented)
         {
             double result = 0;
-            switch (PriceCode)
+            switch (GetPriceCode())
             {
                 case Regular:
                     result += 2;
                     if (daysRented > 2)
-                    {
                         result += (daysRented - 2) * 1.5;
-                    }
                     break;
                 case NewRelease:
                     result += daysRented * 3;
@@ -47,9 +66,11 @@
 
         public int GetFrequentRenterPoints(int daysRented)
         {
-            if ((PriceCode == NewRelease) && (daysRented > 1))
+            if ((GetPriceCode() == NewRelease) && (daysRented > 1))
                 return 2;
             return 1;
         }
     }
+
+
 }
