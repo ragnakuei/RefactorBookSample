@@ -31,7 +31,7 @@ namespace Ch01
                     && (each.DaysRented > 1))
                     frequentRenterPoints++;
 
-                var thisAmount = amountFor(each);
+                var thisAmount = AmountFor(each);
                 result += "\t" + each.RentalMovie.Title + "\t" + thisAmount + "\n";
                 totalAmount += thisAmount;
             }
@@ -42,29 +42,29 @@ namespace Ch01
             return result;
         }
 
-        private static double amountFor(Rental each)
+        private static double AmountFor(Rental rental)
         {
-            double thisAmount = 0;
-            switch (each.RentalMovie.PriceCode)
+            double result = 0;
+            switch (rental.RentalMovie.PriceCode)
             {
                 case Movie.Regular:
-                    thisAmount += 2;
-                    if (each.DaysRented > 2)
+                    result += 2;
+                    if (rental.DaysRented > 2)
                     {
-                        thisAmount += (each.DaysRented - 2) * 1.5;
+                        result += (rental.DaysRented - 2) * 1.5;
                     }
                     break;
                 case Movie.NewRelease:
-                    thisAmount += each.DaysRented * 3;
+                    result += rental.DaysRented * 3;
                     break;
                 case Movie.Childrens:
-                    thisAmount += 1.5;
-                    if (each.DaysRented > 3)
-                        thisAmount += (each.DaysRented - 3) * 1.5;
+                    result += 1.5;
+                    if (rental.DaysRented > 3)
+                        result += (rental.DaysRented - 3) * 1.5;
                     break;
             }
 
-            return thisAmount;
+            return result;
         }
     }
 }
