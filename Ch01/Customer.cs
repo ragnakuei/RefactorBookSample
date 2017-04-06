@@ -30,6 +30,17 @@ namespace Ch01
             return result;
         }
 
+        public string HtmlStatement()
+        {
+            string result = "<H1>Rentals for <EM>" + Name + "</EM></H1><P>\n";
+            foreach (Rental each in _rentals)
+                result += each.RentalMovie.Title + ": " + each.RentalMovie.GetCharge(each.DaysRented) + "<BR>\n";
+
+            result += "<P>You owe <EM>" + GetTotalCharge() + "</EM><P>\n";
+            result += "On this rental you earned <EM>" + GetTotalFrequentRenterPoints() + "</EM> frequent renter points<P>";
+            return result;
+        }
+
         private double GetTotalCharge()
         {
             double result = 0;
