@@ -2,32 +2,22 @@
 {
     public class Movie
     {
-        public const int CHILDRENS = 2;
-        public const int REGULAR = 0;
-        public const int NEW_RELEASE = 1;
+        public const int Regular = 0;
+        public const int NewRelease = 1;
+        public const int Childrens = 2;
 
-        private string _title;
-        private int _priceCode;
+        public string Title { get; }
+        public int PriceCode { get; private set; }
 
         public Movie(string title, int priceCode)
         {
-            _title = title;
-            _priceCode = priceCode;
+            Title = title;
+            PriceCode = priceCode;
         }
 
-        public int getPriceCode()
+        public void SetPriceCode(int arg)
         {
-            return _priceCode;
-        }
-
-        public void setPriceCode(int arg)
-        {
-            _priceCode = arg;
-        }
-
-        public string getTitle()
-        {
-            return _title;
+            PriceCode = arg;
         }
     }
 }

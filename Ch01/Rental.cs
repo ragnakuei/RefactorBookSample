@@ -2,23 +2,13 @@ namespace Ch01
 {
     public class Rental
     {
-        private readonly Movie _movie;
-        private readonly int _daysRented;
+        public Movie RentalMovie { get; }
+        public int DaysRented { get; }
 
         public Rental(Movie movie, int daysRented)
         {
-            _movie = movie;
-            _daysRented = daysRented;
-        }
-
-        public int GetDaysRented()
-        {
-            return _daysRented;
-        }
-
-        public Movie getMovie()
-        {
-            return _movie;
+            RentalMovie = movie;
+            DaysRented = daysRented;
         }
     }
 }

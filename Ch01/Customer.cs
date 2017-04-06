@@ -4,66 +4,59 @@ namespace Ch01
 {
     public class Customer
     {
-        private readonly string _name;
-        private List<Rental> _rentals = new List<Rental>();
+        public string Name { get; }
+        private readonly List<Rental> _rentals = new List<Rental>();
 
         public Customer(string name)
         {
-            _name = name;
+            Name = name;
         }
 
-        public void addRental(Rental arg)
+        public void AddRental(Rental arg)
         {
             _rentals.Add(arg);
         }
 
-
-        private string getName()
-        {
-            return _name;
-        }
-
-        public string statement()
+        public string Statement()
         {
             double totalAmount = 0;
             int frequentRenterPoints = 0;
             List<Rental> rentals = _rentals;
-            string result = "Rental Record for " + getName() + "\n";
-            while (rentals.Count > 0)
+            string result = "Rental Record for " + Name + "\n";
+            foreach (Rental each in rentals)
             {
                 double thisAmount = 0;
-                Rental each = (Rental)rentals[0];
 
-                switch (each.getMovie().getPriceCode())
+                switch (each.RentalMovie.PriceCode)
                 {
-                    case Movie.REGULAR:
+                    case Movie.Regular:
                         thisAmount += 2;
-                        if (each.GetDaysRented() > 2)
+                        if (each.DaysRented > 2)
                         {
-                            thisAmount += (each.GetDaysRented() - 2) * 1.5;
+                            thisAmount += (each.DaysRented - 2) * 1.5;
                         }
                         break;
-                    case Movie.NEW_RELEASE:
-                        thisAmount += each.GetDaysRented() * 3;
+                    case Movie.NewRelease:
+                        thisAmount += each.DaysRented * 3;
                         break;
-                    case Movie.CHILDRENS:
+                    case Movie.Childrens:
                         thisAmount += 1.5;
-                        if (each.GetDaysRented() > 3)
-                            thisAmount += (each.GetDaysRented() - 3) * 1.5;
+                        if (each.DaysRented > 3)
+                            thisAmount += (each.DaysRented - 3) * 1.5;
                         break;
                 }
 
                 frequentRenterPoints++;
 
-                if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)
-                    && (each.GetDaysRented() > 1))
+                if ((each.RentalMovie.PriceCode == Movie.NewRelease)
+                    && (each.DaysRented > 1))
                     frequentRenterPoints++;
 
-                result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount + "\n";
+                result += "\t" + each.RentalMovie.Title + "\t" + thisAmount + "\n";
                 totalAmount += thisAmount;
             }
 
-            result += "Amount owed is" + totalAmount + "\n";
+            result += "Amount owed is " + totalAmount + "\n";
             result += "You earned " + frequentRenterPoints + " frequent renter points\n";
 
             return result;
