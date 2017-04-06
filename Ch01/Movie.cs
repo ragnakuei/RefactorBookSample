@@ -12,6 +12,12 @@ namespace Ch01
 
         public string Title { get; }
 
+        public Price Price
+        {
+            set { _price = value; }
+            get { return _price; }
+        }
+
         public Movie(string title, int price)
         {
             Title = title;
@@ -44,13 +50,6 @@ namespace Ch01
         public double GetCharge(int daysRented)
         {
             return _price.GetCharge(daysRented);
-        }
-
-        public int GetFrequentRenterPoints(int daysRented)
-        {
-            if ((GetPriceCode() == NewRelease) && (daysRented > 1))
-                return 2;
-            return 1;
         }
     }
 

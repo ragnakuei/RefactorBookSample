@@ -54,7 +54,7 @@ namespace Ch01
         {
             int frequentRenterPoints = 0;
             foreach (Rental each in _rentals)
-                frequentRenterPoints += each.RentalMovie.GetFrequentRenterPoints(each.DaysRented);
+                frequentRenterPoints += each.RentalMovie.Price.GetFrequentRenterPoints(each.DaysRented, each.RentalMovie);
 
             return frequentRenterPoints;
         }

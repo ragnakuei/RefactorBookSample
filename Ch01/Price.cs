@@ -4,6 +4,11 @@
     {
         public abstract int GetPriceCode();
         public abstract double GetCharge(int daysRented);
+
+        public virtual int GetFrequentRenterPoints(int daysRented, Movie movie)
+        {
+            return 1;
+        }
     }
 
     public class ChildrensPrice : Price
@@ -32,6 +37,11 @@
         public override double GetCharge(int daysRented)
         {
             return daysRented * 3;
+        }
+
+        public override int GetFrequentRenterPoints(int daysRented, Movie movie)
+        {
+            return (daysRented > 1) ? 2 : 1;
         }
     }
 
