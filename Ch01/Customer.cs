@@ -22,7 +22,7 @@ namespace Ch01
             List<Rental> rentals = _rentals;
             string result = "Rental Record for " + Name + "\n";
             foreach (Rental each in rentals)
-                result += "\t" + each.RentalMovie.Title + "\t" + each.GetCharge() + "\n";
+                result += "\t" + each.RentalMovie.Title + "\t" + each.RentalMovie.GetCharge(each.DaysRented) + "\n";
 
             result += "Amount owed is " + GetTotalCharge() + "\n";
             result += "You earned " + GetTotalFrequentRenterPoints() + " frequent renter points\n";
@@ -34,7 +34,7 @@ namespace Ch01
         {
             double result = 0;
             foreach (Rental each in _rentals)
-                result += each.GetCharge();
+                result += each.RentalMovie.GetCharge(each.DaysRented);
 
             return result;
         }
@@ -43,7 +43,7 @@ namespace Ch01
         {
             int frequentRenterPoints = 0;
             foreach (Rental each in _rentals)
-                frequentRenterPoints += each.GetFrequentRenterPoints();
+                frequentRenterPoints += each.RentalMovie.GetFrequentRenterPoints(each.DaysRented);
 
             return frequentRenterPoints;
         }
