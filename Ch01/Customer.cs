@@ -20,51 +20,28 @@ namespace Ch01
         public string Statement()
         {
             double totalAmount = 0;
-            int frequentRenterPoints = 0;
             List<Rental> rentals = _rentals;
             string result = "Rental Record for " + Name + "\n";
             foreach (Rental each in rentals)
             {
-                frequentRenterPoints++;
-
-                if ((each.RentalMovie.PriceCode == Movie.NewRelease)
-                    && (each.DaysRented > 1))
-                    frequentRenterPoints++;
-
-                var thisAmount = AmountFor(each);
+                var thisAmount = each.GetCharge();
                 result += "\t" + each.RentalMovie.Title + "\t" + thisAmount + "\n";
                 totalAmount += thisAmount;
             }
 
             result += "Amount owed is " + totalAmount + "\n";
-            result += "You earned " + frequentRenterPoints + " frequent renter points\n";
+            result += "You earned " + GetFrequentReterpoints() + " frequent renter points\n";
 
             return result;
         }
 
-        private static double AmountFor(Rental rental)
+        private int GetFrequentReterpoints()
         {
-            double result = 0;
-            switch (rental.RentalMovie.PriceCode)
-            {
-                case Movie.Regular:
-                    result += 2;
-                    if (rental.DaysRented > 2)
-                    {
-                        result += (rental.DaysRented - 2) * 1.5;
-                    }
-                    break;
-                case Movie.NewRelease:
-                    result += rental.DaysRented * 3;
-                    break;
-                case Movie.Childrens:
-                    result += 1.5;
-                    if (rental.DaysRented > 3)
-                        result += (rental.DaysRented - 3) * 1.5;
-                    break;
-            }
+            int frequentRenterPoints = 0;
+            foreach (Rental each in _rentals)
+                frequentRenterPoints += each.GetFrequentRenterPoints();
 
-            return result;
+            return frequentRenterPoints;
         }
     }
 }
