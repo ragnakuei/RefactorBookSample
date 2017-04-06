@@ -25,7 +25,7 @@ namespace Ch01
                 result += "\t" + each.RentalMovie.Title + "\t" + each.GetCharge() + "\n";
 
             result += "Amount owed is " + GetTotalCharge() + "\n";
-            result += "You earned " + GetFrequentReterpoints() + " frequent renter points\n";
+            result += "You earned " + GetTotalFrequentRenterPoints() + " frequent renter points\n";
 
             return result;
         }
@@ -39,7 +39,7 @@ namespace Ch01
             return result;
         }
 
-        private int GetFrequentReterpoints()
+        private int GetTotalFrequentRenterPoints()
         {
             int frequentRenterPoints = 0;
             foreach (Rental each in _rentals)
